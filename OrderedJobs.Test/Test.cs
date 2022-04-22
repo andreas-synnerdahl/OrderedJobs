@@ -18,7 +18,7 @@ namespace OrderedJobs.Test
         [TestCase('a', ExpectedResult = "a")]
         [TestCase('b', ExpectedResult = "b")]
         [TestCase('x', ExpectedResult = "x")]
-        public string TestParseChar(char value)
+        public string RegisterOneTest(char value)
         {
             target.Register(value);
 
@@ -27,11 +27,11 @@ namespace OrderedJobs.Test
 
         [TestCase('a', 'a', ExpectedResult = "a")]
         [TestCase('b', 'b', ExpectedResult = "b")]
-        [TestCase('a', 'b', ExpectedResult = "ba")]
-        [TestCase('b', 'a', ExpectedResult = "ab")]
-        public string TestParseChar(char dependant, char independant)
+        [TestCase('a', 'b', ExpectedResult = "ab")]
+        [TestCase('b', 'a', ExpectedResult = "ba")]
+        public string RegisterTwoTest(char x, char y)
         {
-            target.Register(dependant, independant);
+            target.Register(y, x);
 
             return target.Sort();
         }
@@ -42,7 +42,7 @@ namespace OrderedJobs.Test
         [TestCase('b', 'c', 'a', ExpectedResult = "bca")]
         [TestCase('c', 'a', 'b', ExpectedResult = "cab")]
         [TestCase('c', 'b', 'a', ExpectedResult = "cba")]
-        public string TestParseCharMin(char x, char y, char z)
+        public string RegisterThreeMinimalTest(char x, char y, char z)
         {
             target.Register(y, x);
             target.Register(z, y);
@@ -56,7 +56,7 @@ namespace OrderedJobs.Test
         [TestCase('b', 'c', 'a', ExpectedResult = "bca")]
         [TestCase('c', 'a', 'b', ExpectedResult = "cab")]
         [TestCase('c', 'b', 'a', ExpectedResult = "cba")]
-        public string TestParseCharMax(char x, char y, char z)
+        public string RegisterThreeMaximalTest(char x, char y, char z)
         {
             target.Register(x);
             target.Register(y, x);
@@ -68,16 +68,19 @@ namespace OrderedJobs.Test
             return target.Sort();
         }
 
-
-        [Test]
-        public void CircularTest()
+        [TestCase('a', 'b', 'c', ExpectedResult = "abc")]
+        [TestCase('a', 'c', 'b', ExpectedResult = "abc")]
+        [TestCase('b', 'a', 'c', ExpectedResult = "abc")]
+        [TestCase('b', 'c', 'a', ExpectedResult = "abc")]
+        [TestCase('c', 'a', 'b', ExpectedResult = "abc")]
+        [TestCase('c', 'b', 'a', ExpectedResult = "abc")]
+        public string RegisterUnorderedTest(char x, char y, char z)
         {
-            target.Register('a');
-            target.Register('b', 'a');
-            target.Register('c', 'b');
-            target.Register('c', 'a');
+            target.Register(x);
+            target.Register(y);
+            target.Register(z);
 
-            var result = target.Sort();
+            return target.Sort();
         }
     }
 }
