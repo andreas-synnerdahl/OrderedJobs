@@ -18,8 +18,7 @@ namespace OrderedJobs.Test
         public JobOrganizer(IComparer<char> comparer)
         {
             _comparer = comparer;
-            _jobs = new Dictionary<char, ICollection<char>>();
-            //new SortedDictionary<char, ICollection<char>>(comparer);
+            _jobs = new SortedDictionary<char, ICollection<char>>(comparer);
         }
 
         public void Register(char job)
