@@ -4,15 +4,20 @@ using System.Linq;
 
 namespace OrderedJobs.Test
 {
-    public class JobOrganizer : IOrderedJobs
+    public class JobOrganizer
+        : IOrderedJobs
     {
         private readonly ISet<char> _jobs;
         private readonly RelationshipComparer<char> _comparer;
 
         public JobOrganizer()
+            : this(Comparer<char>.Default)
+        { }
+        
+        public JobOrganizer(IComparer<char> comparer)
         {
-            _jobs = new SortedSet<char>(Comparer<char>.Default);
-            _comparer = new RelationshipComparer<char>();
+            _jobs = new SortedSet<char>(comparer);
+            _comparer = new RelationshipComparer<char>(comparer);
         }
 
         public void Register(char job)
