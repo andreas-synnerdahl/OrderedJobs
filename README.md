@@ -1,4 +1,3 @@
 # OrderedJobs
 
-Result from CodKata:
-https://ccd-school.de/en/coding-dojo/classes-katas/ordered-jobs/
+Solution to [Kata “Ordered Jobs”](https://ccd-school.de/en/coding-dojo/classes-katas/ordered-jobs/)
